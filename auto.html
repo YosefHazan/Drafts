@@ -11,6 +11,17 @@
                     var inputUrl = $("#yy-eUrl").val();
                     $("#iframeResult").attr("src", inputUrl);
                 });
+
+                //Srech by id, return all property
+                $("#IDID").click(function(){
+                    var inputIDID = $("#yyId").val();
+                    var yyThis = $("#iframeResult").contents().find('#' + inputIDID);
+                    var yyClass = $(yyThis).attr('class');
+                    //var yyXPhath = $('#' + inputIDID).evaluate;
+                    //var yyValue = $('#' + inputIDID).val();
+                    //var yyText = $('#' + inputIDID).text();
+                    alert(yyClass + "yyClass");//alert(yyXPhath + "yyXPhath");
+                });
             });
         </script>
         <style>
@@ -266,6 +277,10 @@
                                             </label>
                                             <br/>
                                             <label>
+                                                <input type="checkbox" name="option" value="option" /> option 
+                                                <span>[1900]</span>
+                                            </label>
+                                            <label>
                                                 <input type="checkbox" name="label" value="label" /> label 
                                                 <span>[1900]</span>
                                             </label>
@@ -284,12 +299,12 @@
                                         </div>
                                         <br />
                                         <div id="IDID" class="w3-bar w3-light-grey" style="border-top:1px solid #f1f1f1;overflow:auto; padding-left: 5%; padding-top: 5%;">
-                                            <input type="text" placeholder="Enter ID Here" value=""/>
-                                            <button class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" onclick="submitTryit(1)">Sreach »</button>
+                                            <input id="yyId" type="text" placeholder="Enter ID Here" default value="first-name"/>
+                                            <button class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green">Sreach »</button>
                                         </div>
                                         <div id="yyClass" class="w3-bar w3-light-grey" style="border-top:1px solid #f1f1f1;overflow:auto; padding-left: 5%; padding-top: 5%;">
                                             <input type="text" placeholder="Enter Class Name Here" value=""/>
-                                            <button class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" onclick="submitTryit(1)">Sreach »</button>
+                                            <button class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green">Sreach »</button>
                                             <span>[1900]</span>
                                         </div>
                                         <div id="TagName" class="w3-bar w3-light-grey" style="border-top:1px solid #f1f1f1;overflow:auto; padding-left: 5%; padding-top: 5%;">
