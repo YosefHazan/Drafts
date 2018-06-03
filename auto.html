@@ -13,14 +13,46 @@
                 });
 
                 //Srech by id, return all property
-                $("#IDID").click(function(){
-                    var inputIDID = $("#yyId").val();
+                $("#BtnId").click(function(){
+                    //find and set  req element
+                    var inputIDID = $("#inputID").val();
                     var yyThis = $("#iframeResult").contents().find('#' + inputIDID);
+                    //get property
                     var yyClass = $(yyThis).attr('class');
-                    //var yyXPhath = $('#' + inputIDID).evaluate;
-                    //var yyValue = $('#' + inputIDID).val();
-                    //var yyText = $('#' + inputIDID).text();
-                    alert(yyClass + "yyClass");//alert(yyXPhath + "yyXPhath");
+                    var yyTagName = $(yyThis).prop("tagName");
+                    var yyValue = $(yyThis).val();
+                    var yyText = $(yyThis).text();
+                    //set property
+                    $("#inputClass").val(yyClass);
+                    $("#inputTagName").val(yyTagName);
+                    $("#inputText").val(yyText);
+                    $("#inputVal").val(yyValue);
+                    /*
+                    TODO: relese 2.0 getCompledAttr(
+                    //$("#inputXPath").val(yyXPhath);
+                    var yyXPhath = //set XPATH --> document.evaluate() 
+                    var yyTextLabel = 
+                    var yyForLabel = 
+                    return all property)
+                    */
+                });
+                
+                //Srech by Class, return all property // ====property of first element - TODO:SUPPORT FOR ALL LIST====//
+                $("#BtnClass").click(function(){
+                    //find and set req element
+                    var inputClass = $("#inputClass").val();
+                    var yyThis = $("#iframeResult").contents().find('.' + (inputClass.replace(" ", ".")));
+                    //get property
+                    var yyID = $(yyThis).attr('id');
+                    var yyTagName = $(yyThis).prop("tagName");
+                    var yyValue = $(yyThis).val();
+                    var yyText = $(yyThis).text();
+                    //set property
+                    $("#inputID").val(yyID);
+                    $("#inputTagName").val(yyTagName);
+                    $("#inputText").val(yyText);
+                    $("#inputVal").val(yyValue);
+                    //TODO: relese 2.0 getCompledAttr()
                 });
             });
         </script>
@@ -299,16 +331,16 @@
                                         </div>
                                         <br />
                                         <div id="IDID" class="w3-bar w3-light-grey" style="border-top:1px solid #f1f1f1;overflow:auto; padding-left: 5%; padding-top: 5%;">
-                                            <input id="yyId" type="text" placeholder="Enter ID Here" default value="first-name"/>
-                                            <button class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green">Sreach »</button>
+                                            <input id="inputID" type="text" placeholder="Enter ID Here" default value="first-name"/>
+                                            <button id="BtnId" class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green">Sreach »</button>
                                         </div>
                                         <div id="yyClass" class="w3-bar w3-light-grey" style="border-top:1px solid #f1f1f1;overflow:auto; padding-left: 5%; padding-top: 5%;">
-                                            <input type="text" placeholder="Enter Class Name Here" value=""/>
-                                            <button class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green">Sreach »</button>
+                                            <input id="inputClass" type="text" placeholder="Enter Class Name Here" value=""/>
+                                            <button id="BtnClass" class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green">Sreach »</button>
                                             <span>[1900]</span>
                                         </div>
                                         <div id="TagName" class="w3-bar w3-light-grey" style="border-top:1px solid #f1f1f1;overflow:auto; padding-left: 5%; padding-top: 5%;">
-                                            <input type="text" placeholder="Enter Tag Name Here" value=""/>
+                                            <input id="inputTagName" type="text" placeholder="Enter Tag Name Here" value=""/>
                                             <button class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" onclick="submitTryit(1)">Sreach »</button>
                                             <span>[1900]</span>
                                         </div>
@@ -318,7 +350,12 @@
                                             <span>[1900]</span>
                                         </div>
                                         <div id="yyText" class="w3-bar w3-light-grey" style="border-top:1px solid #f1f1f1;border-bottom:1px solid #f1f1f1;overflow:auto; padding-left: 5%; padding-top: 5%;">
-                                            <input type="text" placeholder="Enter Text/Value Here" value=""/>
+                                            <input id="inputText" type="text" placeholder="Enter Text Here" value=""/>
+                                            <button class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" onclick="submitTryit(1)">Sreach »</button>
+                                            <span>[1900]</span>
+                                        </div>
+                                        <div id="yyVal" class="w3-bar w3-light-grey" style="border-top:1px solid #f1f1f1;border-bottom:1px solid #f1f1f1;overflow:auto; padding-left: 5%; padding-top: 5%;">
+                                            <input id="inputVal" type="text" placeholder="Enter Value Here" value=""/>
                                             <button class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" onclick="submitTryit(1)">Sreach »</button>
                                             <span>[1900]</span>
                                         </div>
