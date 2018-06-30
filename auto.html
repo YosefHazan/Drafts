@@ -4,24 +4,40 @@
         <title>yyFunTest</title>
         <script src="C:\yosef_mesudar\yosef_Chazan\אתרים וכתיבה\אתר בדיקות\אתר\אטוטמציה בjs\jquery-3.2.1.min.js"></script>
         <script>
+           <script>
             $(document).ready(function(){
+                var inputUrl;
+                var yyThisID;
+                var yyThisClass;
+                
+                // var foe get user input
+                var inputIDID;
+                var inputClass;
+                var inputTagName;
+                var inputVal;
+                // var foe get user input
+                var yyID;
+                var yyClass;
+                var yyTagName;
+                var yyValue;
+                var yyText; 
                 
                 //URL
                 $("#RunUrl").click(function(){
-                    var inputUrl = $("#yy-eUrl").val();
+                    inputUrl = $("#yy-eUrl").val();
                     $("#iframeResult").attr("src", inputUrl);
                 });
 
                 //Srech by id, return all property
                 $("#BtnId").click(function(){
                     //find and set  req element
-                    var inputIDID = $("#inputID").val();
-                    var yyThis = $("#iframeResult").contents().find('#' + inputIDID);
+                    inputIDID = $("#inputID").val();
+                    yyThisID = $("#iframeResult").contents().find('#' + inputIDID);
                     //get property
-                    var yyClass = $(yyThis).attr('class');
-                    var yyTagName = $(yyThis).prop("tagName");
-                    var yyValue = $(yyThis).val();
-                    var yyText = $(yyThis).text();
+                    yyClass = $(yyThisID).attr('class');
+                    yyTagName = $(yyThisID).prop("tagName");
+                    yyValue = $(yyThisID).val();
+                    yyText = $(yyThisID).text();
                     //set property
                     $("#inputClass").val(yyClass);
                     $("#inputTagName").val(yyTagName);
@@ -30,7 +46,7 @@
                     /*
                     TODO: relese 2.0 getCompledAttr(
                     //$("#inputXPath").val(yyXPhath);
-                    var yyXPhath = //set XPATH --> document.evaluate() 
+                    var yyXPhath = //set XPATH --> document.evaluate().stringValue 
                     var yyTextLabel = 
                     var yyForLabel = 
                     return all property)
@@ -40,20 +56,86 @@
                 //Srech by Class, return all property // ====property of first element - TODO:SUPPORT FOR ALL LIST====//
                 $("#BtnClass").click(function(){
                     //find and set req element
-                    var inputClass = $("#inputClass").val();
-                    var yyThis = $("#iframeResult").contents().find('.' + (inputClass.replace(" ", ".")));
+                    inputClass = $("#inputClass").val();
+                    yyThisClass = $("#iframeResult").contents().find('.' + (inputClass.replace(" ", ".")));
+                    $(yyThisClass).each(function(index, element){
+                    
+                        //get property
+                        yyID = $(this).attr('id');
+                        yyTagName = $(this).prop("tagName");
+                        yyValue = $(this).val();
+                        yyText = $(this).text();
+                    
+                        //add item in list- "result-in-list"
+                        $('<li id="li'+ index + '"></li>').appendTo("#result-in-list");
+                        
+                        //set property of element to li
+                        $('#li'+ index).text("ID= " + yyID + " TagName= " + yyTagName + " Text= " + yyText + " Val= " + yyValue);
+                    });
+                    //TODO: relese 2.0 getCompledAttr()
+                });
+
+                //Srech by Tag-Name, return all property // ====property of first element - TODO:SUPPORT FOR ALL LIST====//
+                $("#BtnTagName").click(function(){
+                    //find and set req element
+                    inputTagName = $("#inputTagName").val();
+                    yyThis = $("#iframeResult").contents().find(inputTagName);
                     //get property
-                    var yyID = $(yyThis).attr('id');
-                    var yyTagName = $(yyThis).prop("tagName");
-                    var yyValue = $(yyThis).val();
-                    var yyText = $(yyThis).text();
+                    yyID = $(yyThis).attr('id');
+                    yyClass = $(yyThis).attr('class');
+                    yyValue = $(yyThis).val();
+                    yyText = $(yyThis).text();
                     //set property
                     $("#inputID").val(yyID);
-                    $("#inputTagName").val(yyTagName);
+                    $("#inputClass").val(yyClass);
                     $("#inputText").val(yyText);
                     $("#inputVal").val(yyValue);
                     //TODO: relese 2.0 getCompledAttr()
                 });
+                
+                /*Srech by XPath, return all property 
+                //NOT WORK!!!! ====property of first element - TODO:SUPPORT FOR ALL LIST====//
+                $("#BtnXPath").click(function(){
+                    //find and set req element
+                    var inputXPath = $("#inputXPath").val();//;//html/body/form/div/input
+                    //var yyThis = document.evaluate(inputXPath, document, null, XPathResult., true).ANY_TYPE;
+                    yyThis = $("#iframeResult").contents().find(inputXPath);
+                    alert(yyThis);
+                    //get property
+                    var yyID = $(yyThis).attr('id');
+                    alert(yyID);
+                    var yyClass = $(yyThis).attr('class');
+                    var yyTagName = $(yyThis).prop("tagName");
+                    //var yyValue = $(yyThis).val();
+                    var yyText = $(yyThis).text();
+                    //set property
+                    $("#inputID").val(yyID);
+                    $("#inputClass").val(yyClass);
+                    $("#inputTagName").val(yyTagName);
+                    //$("#inputVal").val(yyValue);
+                    $("#inputText").val(yyText);
+                    //TODO: relese 2.0 getCompledAttr()
+                });*/
+                
+                //Srech by val, return all property 
+                //NOT WORK!!!! ====property of first element - TODO:SUPPORT FOR ALL LIST====//
+                $("#BtnVal").click(function(){
+                    //find and set req element
+                    inputVal = $("#inputVal").val();
+                    yyThis = $("#iframeResult").contents().find(inputVal);
+                    //get property
+                    yyID = $(yyThis).attr('id');
+                    yyClass = $(yyThis).attr('class');
+                    yyTagName = $(yyThis).prop("tagName");
+                    yyText = $(yyThis).text();
+                    //set property
+                    $("#inputID").val(yyID);
+                    $("#inputClass").val(yyClass);
+                    $("#inputText").val(yyText);
+                    $("#inputTagName").val(yyTagName);
+                    //TODO: relese 2.0 getCompledAttr()
+                });
+                
             });
         </script>
         <style>
