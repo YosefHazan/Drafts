@@ -2,19 +2,24 @@
 <html lang="en-US">
     <head>
         <title>yyFunTest</title>
+        <script src="C:\yosef_mesudar\yosef_Chazan\אתרים וכתיבה\אתר בדיקות\אתר\אטוטמציה בjs\jquery-3.2.1.min.js"></script>
+        <!--script type="text/javascript" src="jquery.xpath.js"></script-->
         <script>
-           <script>
             $(document).ready(function(){
                 var inputUrl;
                 var yyThisID;
                 var yyThisClass;
+                var yyThisTagName;
+                var yyThisAllinput;
+                var yyGetHtml;
+                //var yyThisXpath;
                 
-                // var foe get user input
+                // var for get user input
                 var inputIDID;
                 var inputClass;
                 var inputTagName;
                 var inputVal;
-                // var foe get user input
+                // var foe get property
                 var yyID;
                 var yyClass;
                 var yyTagName;
@@ -26,22 +31,94 @@
                     inputUrl = $("#yy-eUrl").val();
                     $("#iframeResult").attr("src", inputUrl);
                 });
-
+                
+                //TODO:function for get element that i`m clicek on them
+                //$("#???").click(function(){
+                
+                //});
+                
+                //function that click on tag "a" and check is correct link
+                function checkA(listA){
+                    $(listA).each(function(index, element){
+                        //get current url
+                        //var FirstPathname = window.location.pathname; // Returns path only
+                        //var FirstUrl      = window.location.href;     // Returns full URL
+                        var FirstIframeUrl = $("#iframeResult").attr('src');
+                        //$(this).click();
+                        //check current url
+                        //var SecPathname = window.location.pathname; // Returns path only
+                        //var SecUrl      = window.location.href;     // Returns full URL
+                        var SecIframeResult = $(this).attr('href');
+                        $("#iframeResult").attr('src', SecIframeResult);/*
+                        if(FirstIframeUrl.search(FirstPathname) || SecUrl.search(FirstUrl)){
+                                alert("(:");
+                        }
+                        else{
+                                alert("):");
+                                $("#iframeResult").attr('src', FirstIframeUrl);
+                        }*/
+                        //go backURL 
+                        alert("1");
+                        //$("#iframeResult").attr('src', FirstIframeUrl);
+                        alert("2")
+                    });
+                }
+                
+                //TODO: function over any input element in the page //relese 2: find by event all other element that cen to drage and to click
+                $("#sreachALLinput").click(function(){// next mission sort by tag name, and click all "a" tag
+                //find and set req element
+                   // $("ul").empty();
+                    yyThisAllinput = $("#iframeResult").contents().find("input, textarea, button, select, label, a");
+                   
+                    $(yyThisAllinput).each(function(index, element){
+                        //get property
+                        yyGetHtml = $(this).prop('outerHTML');
+                        yyID = $(this).attr('id');
+                        yyClass = $(this).prop('class');
+                        yyTagName = $(this).prop("tagName").toLowerCase();
+                        yyValue = $(this).val();
+                        yyText = $(this).text();
+                        
+                        if(yyClass.includes(" ")){
+                            yyClass.replace(" ", ".");
+                        }
+                        if(yyTagName == "a"){
+                            alert("(:");
+                            //checkA(this);
+                            $(this).dblclick();
+                        }
+                        //add item in list- "result-in-list"
+                        $('<li id="li'+ index + '"></li>').appendTo("#result-in-list");
+                        
+                        //set property of element to li
+                        $('#li'+ index).text(yyGetHtml);
+                        //yyTagName +" Id=\"" + yyID + "\", ClassName=\"." + yyClass + "\", Text=\"" + yyText + "\", Val=\"" + yyValue + "\".");
+                        //TODO: relese 2.0 getCompledAttr()
+                    });
+                });
+                
                 //Srech by id, return all property
                 $("#BtnId").click(function(){
                     //find and set  req element
                     inputIDID = $("#inputID").val();
                     yyThisID = $("#iframeResult").contents().find('#' + inputIDID);
-                    //get property
-                    yyClass = $(yyThisID).attr('class');
-                    yyTagName = $(yyThisID).prop("tagName");
-                    yyValue = $(yyThisID).val();
-                    yyText = $(yyThisID).text();
-                    //set property
-                    $("#inputClass").val(yyClass);
-                    $("#inputTagName").val(yyTagName);
-                    $("#inputText").val(yyText);
-                    $("#inputVal").val(yyValue);
+                    
+                     $("ul").empty();
+                    $(yyThisID).each(function(index, element){
+                    
+                        //get property
+                        yyID = $(this).attr('id');
+                        yyClass = $(this).attr('class');
+                        yyTagName = $(this).prop("tagName");
+                        yyValue = $(this).val();
+                        yyText = $(this).text();
+                    
+                        //add item in list- "result-in-list"
+                        $('<li id="li'+ index + '"></li>').appendTo("#result-in-list");
+                        
+                        //set property of element to li
+                        $('#li'+ index).text(yyTagName +" Id=\"" + yyID + "\", ClassName=\"." + yyClass.replace(" ", ".") + "\", Text=\"" + yyText + "\", Val=\"" + yyValue + "\".");
+                    });
                     /*
                     TODO: relese 2.0 getCompledAttr(
                     //$("#inputXPath").val(yyXPhath);
@@ -57,6 +134,7 @@
                     //find and set req element
                     inputClass = $("#inputClass").val();
                     yyThisClass = $("#iframeResult").contents().find('.' + (inputClass.replace(" ", ".")));
+                    $("ul").empty();
                     $(yyThisClass).each(function(index, element){
                     
                         //get property
@@ -78,18 +156,24 @@
                 $("#BtnTagName").click(function(){
                     //find and set req element
                     inputTagName = $("#inputTagName").val();
-                    yyThis = $("#iframeResult").contents().find(inputTagName);
-                    //get property
-                    yyID = $(yyThis).attr('id');
-                    yyClass = $(yyThis).attr('class');
-                    yyValue = $(yyThis).val();
-                    yyText = $(yyThis).text();
-                    //set property
-                    $("#inputID").val(yyID);
-                    $("#inputClass").val(yyClass);
-                    $("#inputText").val(yyText);
-                    $("#inputVal").val(yyValue);
-                    //TODO: relese 2.0 getCompledAttr()
+                    yyThisTagName = $("#iframeResult").contents().find(inputTagName);
+                    $("ul").empty();
+                    
+                    $(yyThisTagName).each(function(index, element){
+                    
+                        //get property
+                        yyID = $(this).attr('id');
+                        yyClass = $(this).attr('class');
+                        yyValue = $(this).val();
+                        yyText = $(this).text();
+                        
+                        //add item in list- "result-in-list"
+                        $('<li id="li'+ index + '"></li>').appendTo("#result-in-list");
+                        
+                        //set property of element to li
+                        $('#li'+ index).text("ID= " + yyID + " ClassName= " + yyClass + " Text= " + yyText + " Val= " + yyValue);
+                        //TODO: relese 2.0 getCompledAttr()
+                    });
                 });
                 
                 /*Srech by XPath, return all property 
@@ -137,217 +221,22 @@
                 
             });
         </script>
-        <style>
-            * {
-                -webkit-box-sizing: border-box;
-                -moz-box-sizing: border-box;
-                box-sizing: border-box;
-            }
-            body {
-                color:#000000;
-                margin:0px;
-                font-size:100%;
-            }
-            span{
-                color: red;
-            }
-            .trytopnav {
-                height:40px;
-                overflow:hidden;
-                min-width:380px;
-                position:absolute;
-                width:100%;
-                top:99px;
-            }
-            .w3-bar .w3-bar-item:hover {
-                color:#757575 !important;
-            }
-            a.w3schoolslink {
-                padding:0 !important;
-                display:inline !important;
-            }
-            a.w3schoolslink:hover,a.w3schoolslink:active {
-                text-decoration:underline !important;
-                background-color:transparent !important;
-            }
-            
-            #shield {
-                display:none;
-                top:0;
-                left:0;
-                width:100%;
-                position:absolute;
-                height:100%;
-                z-index:4;
-            }
-            #framesize span {
-                font-family:Consolas, monospace;
-            }
-            #container {
-                background-color:#f1f1f1;
-                width:100%;
-                overflow:auto;
-                position:absolute;
-                top:138px;
-                bottom:0;
-                height:auto;
-            }
-            #textareacontainer, #iframecontainer {
-                float:left;
-                height:100%;
-                width:50%;
-            }
-            #textarea, #iframe {
-                height:100%;
-                width:100%;
-                padding-bottom:10px;
-                padding-top:1px;
-            }
-            #textarea {
-                padding-left:10px;
-                padding-right:5px;  
-            }
-            #iframe {
-                padding-left:5px;
-                padding-right:10px;  
-            }
-            #textareawrapper {
-                width:100%;
-                height:100%;
-                background-color: #ffffff;
-                position:relative;
-                box-shadow:0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-            }
-            #iframewrapper {
-                width:100%;
-                height:100%;
-                -webkit-overflow-scrolling: touch;
-                background-color: #ffffff;
-                box-shadow:0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-            }
-            #textareaCode {
-                background-color: #ffffff;
-                font-family: consolas,"courier new",monospace;
-                font-size:15px;
-                height:100%;
-                width:100%;
-                padding:8px;
-                resize: none;
-                border:none;
-                line-height:normal;    
-            }
-            .CodeMirror.cm-s-default {
-                line-height:normal;
-                padding: 4px;
-                height:100%;
-                width:100%;
-            }
-            #iframeResult {
-                background-color: #ffffff;
-                height:100%;
-                width:100%;  
-            }
-            #textareacontainer.horizontal,#iframecontainer.horizontal{
-                height:50%;
-                float:none;
-                width:100%;
-            }
-            #textarea.horizontal{
-                height:100%;
-                padding-left:10px;
-                padding-right:10px;
-            }
-            #iframe.horizontal{
-                height:100%;
-                padding-right:10px;
-                padding-bottom:10px;
-                padding-left:10px;  
-            }
-            #container.horizontal{
-                min-height:200px;
-                margin-left:0;
-            }
-            #tryitLeaderboard {
-                overflow:hidden;
-                text-align:center;
-                margin-top:5px;
-                height:90px;
-            }
-            .w3-dropdown-content {width:350px}
-            
-            @media screen and (max-width: 727px) {
-                .trytopnav {top:70px;}
-                #container {top:108px;}
-                
-            }
-            @media screen and (max-width: 467px) {
-                .trytopnav {top:60px;}
-                #container {top:98px;}
-                .w3-dropdown-content {width:100%}
-            }
-            @media only screen and (max-device-width: 768px) {
-                #iframewrapper {overflow: auto;}
-                #container     {min-width:320px;}
-                .stack         {display:none;}
-                #tryhome       {display:block;}
-            }
-            
-            @font-face {
-                font-family: 'fontawesome';
-                src:url('../lib/fonts/fontawesome.eot?14663396');
-                src:url('../lib/fonts/fontawesome.eot?14663396#iefix') format('embedded-opentype'),
-                    url('../lib/fonts/fontawesome.woff?14663396') format('woff'),
-                    url('../lib/fonts/fontawesome.ttf?14663396') format('truetype'),
-                    url('../lib/fonts/fontawesome.svg?14663396#fontawesome') format('svg');
-                font-weight:normal;
-                font-style:normal;
-            }
-            .fa {
-                display:inline-block;
-                font:normal normal normal 14px/1 FontAwesome;
-                font-size:inherit;
-                text-rendering:auto;
-                -webkit-font-smoothing:antialiased;
-                -moz-osx-font-smoothing:grayscale;
-                transform:translate(0,0);
-            }
-            .fa-2x {
-                font-size:2em;
-            }
-            .fa-home:before {content: '\e800'; }
-            .fa-save:before {content: '\e804'; }
-            .fa-rotate:before {content: '\e813'; }
-            .fa-menu:before { content: '\f0c9'; }
-            .loader {
-                border: 6px solid #f3f3f3; /* Light grey */
-                border-top: 6px solid #3498db; /* Blue */
-                border-radius: 50%;
-                width: 60px;
-                height: 60px;
-                animation: spin 2s linear infinite;
-            }
-            @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-            }
-            
-        </style>
+        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
-        <div id="tryitLeaderboard" style="background-color:#ffffff">
+<!----> <div id="tryitLeaderboard" style="background-color:#ffffff">
             <div id="div-gpt-ad-1428407818244-0">Our Automation Will be Start</div>
         </div>
-        <div class="trytopnav">
+<!----> <div class="trytopnav">
             <div id="eUrl" class="w3-bar w3-light-grey" style="border-top:1px solid #f1f1f1;overflow:auto;padding-left: 40%;">
                 <input id="yy-eUrl" type="text" placeholder="Enter URL Here" value=""/>
                 <button id=RunUrl class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green">Run »</button>
             </div>
         </div>
         <div id="container">
-            <div id="navbarDropMenu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:5">
+<!---->     <div id="navbarDropMenu" class="w3-dropdown-content w3-bar-block w3-border" style="z-index:5">
                 <div class="w3-bar-block">
-    
-      <!--
+                <!--
     <a class="w3-bar-item w3-button" href="javascript:void(0);" title="Save" onclick="openMenu();click_savebtn()"><i class="fa fa-save" style="font-size:26px;margin-right:10px;"></i><span style="position:relative;top:-4px;left:2px;">Save Code</span>
       </a>
       <a class="w3-bar-item w3-button" href="javascript:void(0);" title="Load" onclick="openMenu();click_savebtn()"><i class="fa fa-save" style="font-size:26px;margin-right:10px;"></i><span style="position:relative;top:-4px;left:2px;">Load Code</span>
@@ -366,79 +255,38 @@
                             <div class="CodeMirror-scroll" tabindex="-1">
                                 <div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: -15px; border-right-width: 15px; min-height: 201px; padding-right: 0px; padding-bottom: 0px;">
                                     <div style="position: relative; top: 0px;">
-                                        <div class="field">
-                                            <h3>Select tag type for result</h3>
-                                            <label>
-                                                <input type="checkbox" name="input" value="input" checked /> Input 
-                                                <span>[1900]</span>
-                                            </label>
-                                            <label>
-                                                <input type="checkbox" name="button" value="button" checked /> button 
-                                                <span>[1900]</span>
-                                            </label>
-                                            <label>
-                                                <input type="checkbox" name="textarea" value="textarea" checked /> textarea 
-                                                <span>[1900]</span>
-                                            </label>
-                                            <label>
-                                                <input type="checkbox" name="checkbox" value="checkbox" checked /> checkbox 
-                                                <span>[1900]</span>
-                                            </label>
-                                            <label>
-                                                <input type="checkbox" name="Select" value="Select" checked /> select 
-                                                <span>[1900]</span>
-                                            </label>
-                                            <br/>
-                                            <label>
-                                                <input type="checkbox" name="option" value="option" /> option 
-                                                <span>[1900]</span>
-                                            </label>
-                                            <label>
-                                                <input type="checkbox" name="label" value="label" /> label 
-                                                <span>[1900]</span>
-                                            </label>
-                                            <label>
-                                                <input type="checkbox" name="p" value="p" /> p 
-                                                <span>[1900]</span>
-                                            </label>
-                                            <label>
-                                                <input type="checkbox" name="div" value="div" /> div 
-                                                <span>[1900]</span>
-                                            </label>
-                                            <label>
-                                                <input type="checkbox" name="image" value="image" /> image 
-                                                <span>[1900]</span>
-                                            </label>
-                                        </div>
-                                        <br />
                                         <div id="IDID" class="w3-bar w3-light-grey" style="border-top:1px solid #f1f1f1;overflow:auto; padding-left: 5%; padding-top: 5%;">
                                             <input id="inputID" type="text" placeholder="Enter ID Here" default value="first-name"/>
                                             <button id="BtnId" class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green">Sreach »</button>
-                                        </div>
-                                        <div id="yyClass" class="w3-bar w3-light-grey" style="border-top:1px solid #f1f1f1;overflow:auto; padding-left: 5%; padding-top: 5%;">
-                                            <input id="inputClass" type="text" placeholder="Enter Class Name Here" value=""/>
-                                            <button id="BtnClass" class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green">Sreach »</button>
+                                        <!--/div>
+                                        <div id="yyClass" class="w3-bar w3-light-grey" style="border-top:1px solid #f1f1f1;overflow:auto; padding-left: 5%; padding-top: 5%;"-->
+                                            
+                                            <button id="sreachALLinput" class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" >sreach ALL input »</button>
                                             <span>[1900]</span>
                                         </div>
                                         <div id="TagName" class="w3-bar w3-light-grey" style="border-top:1px solid #f1f1f1;overflow:auto; padding-left: 5%; padding-top: 5%;">
-                                            <input id="inputTagName" type="text" placeholder="Enter Tag Name Here" value=""/>
-                                            <button class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" onclick="submitTryit(1)">Sreach »</button>
+                                            <input id="inputTagName" type="text" placeholder="Enter Tag Name Here" value="input"/>
+                                            <button id="BtnTagName" class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green">Sreach »</button>
                                             <span>[1900]</span>
-                                        </div>
-                                        <div id="yyXPhath" class="w3-bar w3-light-grey" style="border-top:1px solid #f1f1f1;overflow:auto; padding-left: 5%; padding-top: 5%;">
-                                            <input type="text" placeholder="Enter XPhath Here" value=""/>
-                                            <button class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" onclick="submitTryit(1)">Sreach »</button>
+                                        <!--/div>
+                                        <div id="yyXPhath" class="w3-bar w3-light-grey" style="border-top:1px solid #f1f1f1;overflow:auto; padding-left: 5%; padding-top: 5%;"-->
+                                            <input id="inputXPath" type="text" placeholder="Enter XPhath Here" value='//html/body/form/div/input' />
+                                            <button id="BtnXPath" class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" >Sreach »</button>
                                             <span>[1900]</span>
                                         </div>
                                         <div id="yyText" class="w3-bar w3-light-grey" style="border-top:1px solid #f1f1f1;border-bottom:1px solid #f1f1f1;overflow:auto; padding-left: 5%; padding-top: 5%;">
                                             <input id="inputText" type="text" placeholder="Enter Text Here" value=""/>
-                                            <button class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" onclick="submitTryit(1)">Sreach »</button>
+                                            <button id="BtnText" class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" >Sreach »</button>
                                             <span>[1900]</span>
-                                        </div>
-                                        <div id="yyVal" class="w3-bar w3-light-grey" style="border-top:1px solid #f1f1f1;border-bottom:1px solid #f1f1f1;overflow:auto; padding-left: 5%; padding-top: 5%;">
+                                        <!--/div>
+                                        <div id="yyVal" class="w3-bar w3-light-grey" style="border-top:1px solid #f1f1f1;border-bottom:1px solid #f1f1f1;overflow:auto; padding-left: 5%; padding-top: 5%;"-->
                                             <input id="inputVal" type="text" placeholder="Enter Value Here" value=""/>
-                                            <button class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green" onclick="submitTryit(1)">Sreach »</button>
+                                            <button id="BtnVal" class="w3-button w3-bar-item w3-green w3-hover-white w3-hover-text-green">Sreach »</button>
                                             <span>[1900]</span>
+                                            <div id="result" class="w3-bar w3-light-grey" style="border-top:1px solid #f1f1f1;border-bottom:1px solid #f1f1f1;overflow:auto; padding-left: 5%; padding-top: 5%;">
+                                                <ul id="result-in-list">
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
